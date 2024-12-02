@@ -15,14 +15,14 @@ export interface HorseFrame {
 }
 
 export type Restriction =
-  | "NORMAL"
-  | "GLUTEN"
-  | "LACTOSE"
-  | "VEGAN"
-  | "VEGETARIAN"
-  | "HALAL"
-  | "NUT";
-//   | "KOSHER";
+  | "GRIMANCE NUTS"
+  | "SKIBIDI PIE"
+  | "LUNCHLY"
+  | "LIVVY DUNNE CHIPS"
+  | "MEWING STEAK"
+  | "GLIZZY"
+  | "BETA TO SIGMA SANDWICH";
+//   | "SUSSY 69420 WRAP";
 
 export interface Food {
   name: string;
@@ -42,124 +42,121 @@ export interface FoodStore {
 
 const useFoodStore = create<FoodStore>((set) => ({
   foods: {
-    NORMAL: [
+    "BETA TO SIGMA SANDWICH": [
       {
-        name: "Normal",
-        restriction: "NORMAL",
+        name: "Beta to Sigma Sandwich",
+        restriction: "BETA TO SIGMA SANDWICH",
       },
     ],
-    GLUTEN: [
+    "GRIMANCE NUTS": [
       {
-        name: "Gluten",
-        restriction: "GLUTEN",
+        name: "Grimance Nuts",
+        restriction: "GRIMANCE NUTS",
       },
     ],
-    LACTOSE: [
+    "SKIBIDI PIE": [
       {
-        name: "Lactose",
-        restriction: "LACTOSE",
+        name: "Skibidi Pie",
+        restriction: "SKIBIDI PIE",
       },
     ],
-    VEGAN: [
+    "LUNCHLY": [
       {
-        name: "Vegan",
-        restriction: "VEGAN",
+        name: "Lunchly",
+        restriction: "LUNCHLY",
       },
     ],
-    VEGETARIAN: [
+    "LIVVY DUNNE CHIPS": [
       {
-        name: "Vegetarian",
-        restriction: "VEGETARIAN",
+        name: "Livvy Dunne Chips",
+        restriction: "LIVVY DUNNE CHIPS",
       },
     ],
-    HALAL: [
+    "MEWING STEAK": [
       {
-        name: "Halal",
-        restriction: "HALAL",
+        name: "Mewing Steak",
+        restriction: "MEWING STEAK",
       },
     ],
-    NUT: [
+    "GLIZZY": [
       {
-        name: "Nut",
-        restriction: "NUT",
+        name: "Glizzy",
+        restriction: "GLIZZY",
       },
     ],
-    // KOSHER: [
+    // "SUSSY 69420 WRAP": [
     //   {
-    //     name: "Kosher",
-    //     restriction: "KOSHER",
+    //     name: "Sussy 69420 Wrap",
+    //     restriction: "SUSSY 69420 WRAP",
     //   },
     // ],
   },
   setFoods: (foods: { [K in Restriction]: Food[] }) => set({ foods }),
   currFoods: {
-    NORMAL: {
-      name: "Normal",
-      restriction: "NORMAL",
+    "BETA TO SIGMA SANDWICH": {
+      name: "Beta to Sigma Sandwich",
+      restriction: "BETA TO SIGMA SANDWICH",
     },
-    GLUTEN: {
-      name: "Gluten-free",
-      restriction: "GLUTEN",
+    "GRIMANCE NUTS": {
+      name: "Grimance Nuts",
+      restriction: "GRIMANCE NUTS",
     },
-    LACTOSE: {
-      name: "Lactose",
-      restriction: "LACTOSE",
+    "SKIBIDI PIE": {
+      name: "Skibidi Pie",
+      restriction: "SKIBIDI PIE",
     },
-    VEGAN: {
-      name: "Vegan",
-      restriction: "VEGAN",
+    "LUNCHLY": {
+      name: "Lunchly",
+      restriction: "LUNCHLY",
     },
-    VEGETARIAN: {
-      name: "Vegetarian",
-      restriction: "VEGETARIAN",
+    "LIVVY DUNNE CHIPS": {
+      name: "Livvy Dunne Chips",
+      restriction: "LIVVY DUNNE CHIPS",
     },
-    HALAL: {
-      name: "Halal",
-      restriction: "HALAL",
+    "MEWING STEAK": {
+      name: "Mewing Steak",
+      restriction: "MEWING STEAK",
     },
-    NUT: {
-      name: "Nut-free",
-      restriction: "NUT",
+    "GLIZZY": {
+      name: "Glizzy",
+      restriction: "GLIZZY",
     },
-    // KOSHER: {
-    //   name: "Kosher",
-    //   restriction: "KOSHER",
+    // "SUSSY 69420 WRAP": {
+    //   name: "Sussy 69420 Wrap",
+    //   restriction: "SUSSY 69420 WRAP",
     // },
   },
   regenCurrFoods: () =>
     set((state) => ({
       currFoods: {
-        NORMAL:
-          state.foods["NORMAL"][
-            Math.floor(Math.random() * state.foods["NORMAL"].length)
+        "BETA TO SIGMA SANDWICH":
+          state.foods["BETA TO SIGMA SANDWICH"][
+            Math.floor(Math.random() * state.foods["BETA TO SIGMA SANDWICH"].length)
           ],
-        GLUTEN:
-          state.foods["GLUTEN"][
-            Math.floor(Math.random() * state.foods["GLUTEN"].length)
+        "GRIMANCE NUTS":
+          state.foods["GRIMANCE NUTS"][
+            Math.floor(Math.random() * state.foods["GRIMANCE NUTS"].length)
           ],
-        LACTOSE:
-          state.foods["LACTOSE"][
-            Math.floor(Math.random() * state.foods["LACTOSE"].length)
+        "SKIBIDI PIE":
+          state.foods["SKIBIDI PIE"][
+            Math.floor(Math.random() * state.foods["SKIBIDI PIE"].length)
           ],
-        VEGAN:
-          state.foods["VEGAN"][
-            Math.floor(Math.random() * state.foods["VEGAN"].length)
+        "LUNCHLY":
+          state.foods["LUNCHLY"][
+            Math.floor(Math.random() * state.foods["LUNCHLY"].length)
           ],
-        VEGETARIAN:
-          state.foods["VEGETARIAN"][
-            Math.floor(Math.random() * state.foods["VEGETARIAN"].length)
+        "LIVVY DUNNE CHIPS":
+          state.foods["LIVVY DUNNE CHIPS"][
+            Math.floor(Math.random() * state.foods["LIVVY DUNNE CHIPS"].length)
           ],
-        HALAL:
-          state.foods["HALAL"][
-            Math.floor(Math.random() * state.foods["HALAL"].length)
+        "MEWING STEAK":
+          state.foods["MEWING STEAK"][
+            Math.floor(Math.random() * state.foods["MEWING STEAK"].length)
           ],
-        NUT: state.foods["NUT"][
-          Math.floor(Math.random() * state.foods["NUT"].length)
-        ],
-        // KOSHER:
-        //   state.foods["KOSHER"][
-        //     Math.floor(Math.random() * state.foods["KOSHER"].length)
-        //   ],
+        "GLIZZY":
+          state.foods["GLIZZY"][
+            Math.floor(Math.random() * state.foods["GLIZZY"].length)
+          ],
       },
     })),
 }));
@@ -195,14 +192,14 @@ export interface HorsesStore {
     serve_result: number
   ) => HorseFrame[] | undefined;
   queueNewHorse: () => void;
-  popHorse: (fate: -1 | -2 | -3) => void;
+  popHorse: (fate: -1 | -2 | -3 | -4) => void;
   removeServedHorse: (id: string) => void;
   setCurrFood: (food: Restriction) => void;
   clearCurrFood: () => void;
 }
 
 const useHorseStore = create<HorsesStore>((set) => ({
-  health: 5,
+  health: 15,
   decrementHealth: () => set((state) => ({ health: state.health - 1 })),
   score: 0,
   incrementScore: () => set((state) => ({ score: state.score + 1 })),
@@ -224,7 +221,7 @@ const useHorseStore = create<HorsesStore>((set) => ({
     // -3 is walking away peacefully
     switch (serve_result) {
       case -1:
-        const frames1: HorseFrame[] = [
+        { const frames1: HorseFrame[] = [
           {
             position: [-4, 0, 0],
             rotation: [0, Math.PI / 2, 0],
@@ -244,10 +241,10 @@ const useHorseStore = create<HorsesStore>((set) => ({
             duration: 0,
           },
         ];
-        return frames1;
+        return frames1; }
       // break;
       case -2:
-        const frames2: HorseFrame[] = [
+        { const frames2: HorseFrame[] = [
           {
             position: [-4, 0, 0],
             rotation: [0, Math.PI / 2, 0],
@@ -261,10 +258,10 @@ const useHorseStore = create<HorsesStore>((set) => ({
             duration: 0,
           },
         ];
-        return frames2;
+        return frames2; }
       // break;
       case -3:
-        const frames3: HorseFrame[] = [
+        { const frames3: HorseFrame[] = [
           {
             position: [-4, 0, 0],
             rotation: [0, Math.PI / 2, 0],
@@ -290,8 +287,72 @@ const useHorseStore = create<HorsesStore>((set) => ({
             duration: 0,
           },
         ];
-        return frames3;
+        return frames3; }
       // break;
+      case -4:
+        { const frames4: HorseFrame[] = [
+          {
+            position: [-4, 0, 0],
+            rotation: [0, Math.PI / 4, 0],
+            action: "Walk",
+            duration: 0,
+          },
+          {
+            position: [-4, 1, 0],
+            rotation: [Math.PI / 2, Math.PI / 2, 0],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 2, 0],
+            rotation: [0, 3 * Math.PI / 4, Math.PI / 2],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 4, 0],
+            rotation: [0, Math.PI, 0],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 8, 0],
+            rotation: [Math.PI / 2, 5 * Math.PI / 4, 0],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 14, 0],
+            rotation: [0, 3 * Math.PI / 2, 0],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 36, 0],
+            rotation: [0, 7 * Math.PI / 4, Math.PI / 2],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 64, 0],
+            rotation: [3 * Math.PI / 2, 0, 0],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 80, 0],
+            rotation: [0, Math.PI / 2, 0],
+            action: "Death",
+            duration: 0,
+          },
+          {
+            position: [-4, 100, 0],
+            rotation: [0, Math.PI / 2, 0],
+            action: "Death",
+            duration: 0,
+          },
+        ];
+        return frames4; }
     }
   },
   getFrames: (id: string) => {
@@ -341,15 +402,14 @@ const useHorseStore = create<HorsesStore>((set) => ({
           id: uuid(),
           // randomly get a restriction
           restriction: [
-            "NORMAL",
-            "GLUTEN",
-            "LACTOSE",
-            "VEGAN",
-            "VEGETARIAN",
-            "HALAL",
-            "NUT",
-            // KOSHER is no longer a restriction
-            // "KOSHER",
+            "GRIMANCE NUTS",
+            "SKIBIDI PIE",
+            "LUNCHLY",
+            "LIVVY DUNNE CHIPS",
+            "MEWING STEAK",
+            "GLIZZY",
+            "BETA TO SIGMA SANDWICH",
+            // "SUSSY 69420 WRAP",
           ][Math.floor(Math.random() * 7)] as Restriction,
           component,
           horseType,
@@ -371,7 +431,7 @@ const useHorseStore = create<HorsesStore>((set) => ({
     set((state) => ({
       servedHorses: state.servedHorses.filter((h) => h.id !== id),
     })),
-  popHorse: (fate: -1 | -2 | -3) => {
+  popHorse: (fate: -1 | -2 | -3 | -4) => {
     set((state) => {
       const [servedHorse, ...horses] = state.horses;
       // update the index of the remaining horses

@@ -4,9 +4,12 @@ import * as THREE from 'three';
 import useHorseStore, { Horse, useFoodStore } from './store';
 // import { MathUtils } from 'three';
 
-function playAudio(audioPath: string) {
+function playAudio(audioPath: string, loop: boolean = false) {
     console.log("Playing audio")
     const audio = new Audio(audioPath);
+    if (loop) {
+        audio.loop = true;
+    }
     audio.play();
 }
 
@@ -33,7 +36,7 @@ const Animated = ({ Component, horse }: { Component: React.ComponentType<any>, h
     const clearCurrentFood = useHorseStore((state) => state.clearCurrFood);
     const incrementScore = useHorseStore((state) => state.incrementScore);
     const decrementHeatlh = useHorseStore((state) => state.decrementHealth);
-    
+
     useFrame((state, delta) => {
         if (!startTimeRef.current) startTimeRef.current = state.clock.getElapsedTime();
         if (horse.index < 0) {
@@ -47,17 +50,17 @@ const Animated = ({ Component, horse }: { Component: React.ComponentType<any>, h
                 const currentFrame = frames[frameIndex];
                 const nextFrame = frames[frameIndex + 1];
                 if (daveRef.current) {
-                    const newPos = currentFrame.position.map((start, i) => 
+                    const newPos = currentFrame.position.map((start, i) =>
                         THREE.MathUtils.lerp(start, nextFrame.position[i], alpha)
                     );
-                    const newRot = currentFrame.rotation.map((start, i) => 
+                    const newRot = currentFrame.rotation.map((start, i) =>
                         THREE.MathUtils.lerp(start, nextFrame.rotation[i], alpha)
                     );
                     setAction(currentFrame.action);
-                    
+
                     daveRef.current.position.set(newPos[0], newPos[1], newPos[2]);
                     daveRef.current.rotation.set(newRot[0], newRot[1], newRot[2]);
-                    
+
                     if (frameIndex !== currentFrameRef.current) {
                         currentFrameRef.current = frameIndex;
                         // setAction(currentFrame.action);
@@ -87,18 +90,18 @@ const Animated = ({ Component, horse }: { Component: React.ComponentType<any>, h
             const alpha = (elapsed % FRAME_DURATION) / FRAME_DURATION;
             const currentFrame = frames[frameIndex];
             const nextFrame = frames[frameIndex + 1];
-            
+
             if (daveRef.current) {
-                const newPos = currentFrame.position.map((start, i) => 
+                const newPos = currentFrame.position.map((start, i) =>
                     THREE.MathUtils.lerp(start, nextFrame.position[i], alpha)
                 );
-                const newRot = currentFrame.rotation.map((start, i) => 
+                const newRot = currentFrame.rotation.map((start, i) =>
                     THREE.MathUtils.lerp(start, nextFrame.rotation[i], alpha)
                 );
-                
+
                 daveRef.current.position.set(newPos[0], newPos[1], newPos[2]);
                 daveRef.current.rotation.set(newRot[0], newRot[1], newRot[2]);
-                
+
                 if (frameIndex !== currentFrameRef.current) {
                     currentFrameRef.current = frameIndex;
                     // console.log("Setting action to", currentFrame.action);
@@ -116,11 +119,11 @@ const Animated = ({ Component, horse }: { Component: React.ComponentType<any>, h
                     setAction("Walk");
                     // constant speed until you reach the destination, then just set the position
                     const speed = delta * 3;
-                    const newPos = daveRef.current.position.toArray().map((start, i) => 
+                    const newPos = daveRef.current.position.toArray().map((start, i) =>
                         start + Math.sign(currentFrame.position[i] - start) * speed
                     );
                     // get newRot x, y, z into a single array and update
-                    const newRot = [daveRef.current.rotation.x, daveRef.current.rotation.y, daveRef.current.rotation.z].map((start, i) => 
+                    const newRot = [daveRef.current.rotation.x, daveRef.current.rotation.y, daveRef.current.rotation.z].map((start, i) =>
                         start + Math.sign(currentFrame.rotation[i] - start) * speed
                     );
 
@@ -168,11 +171,11 @@ const Animated = ({ Component, horse }: { Component: React.ComponentType<any>, h
                 setAction("Walk");
                 // constant speed until you reach the destination, then just set the position
                 const speed = delta * 3;
-                const newPos = daveRef.current.position.toArray().map((start, i) => 
+                const newPos = daveRef.current.position.toArray().map((start, i) =>
                     start + Math.sign(currentFrame.position[i] - start) * speed
                 );
                 // get newRot x, y, z into a single array and update
-                const newRot = [daveRef.current.rotation.x, daveRef.current.rotation.y, daveRef.current.rotation.z].map((start, i) => 
+                const newRot = [daveRef.current.rotation.x, daveRef.current.rotation.y, daveRef.current.rotation.z].map((start, i) =>
                     start + Math.sign(currentFrame.rotation[i] - start) * speed
                 );
 
@@ -235,50 +238,37 @@ const Animated = ({ Component, horse }: { Component: React.ComponentType<any>, h
                         clearCurrentFood();
                         setAction("Eating");
                         setTimeout(() => {
-                            if (horse.restriction === currFood || horse.restriction === "NORMAL") {
+                            if (horse.restriction === currFood) {
                                 // pop the horse
                                 // depending on the restriction, the horse will have different fate
                                 incrementScore();
                                 popHorse(-3);
+                                const seed = Math.random();
+                                if (seed > 0.7) {
+                                    playAudio("/thick.mp3");
+                                } else if (Math.random() > 0.4) {
+                                    playAudio("/cook.mp3");
+                                } else {
+                                    playAudio("/rizz.mp3");
+                                }
                             } else {
                                 // pop the horse
                                 // depending on the restriction, the horse will have different fate
                                 decrementHeatlh();
                                 playAudio("/incorrect_buzzer.mp3");
-                                switch (horse.restriction) {
-                                    case "GLUTEN":
-                                        popHorse(-1);
-                                        break;
-                                    case "LACTOSE":
-                                        popHorse(-1);
-                                        break;
-                                    case "VEGAN":
-                                        const chance3 = Math.random() > 0.8;
-                                        if (chance3) {
-                                            popHorse(-2);
-                                        } else {
-                                            popHorse(-1);
-                                        }
-                                        break;
-                                    case "VEGETARIAN":
-                                        const chance4 = Math.random() > 0.8;
-                                        if (chance4) {
-                                            popHorse(-2);
-                                        } else {
-                                            popHorse(-1);
-                                        }
-                                        break;
-                                    case "HALAL":
-                                        popHorse(-1);
-                                        break;
-                                    case "NUT":
-                                        const chance6 = Math.random() > 0.1;
-                                        if (chance6) {
-                                            popHorse(-2);
-                                        } else {
-                                            popHorse(-1);
-                                        }
-                                        break;
+
+                                const random = Math.random();
+                                if (random > 0.7) {
+                                    playAudio("./death.mp3");
+                                    popHorse(-2);
+                                } else if (random > 0.4) {
+                                    setTimeout(() => {
+                                        playAudio("./toilet.mp3");
+                                    }, 1000);
+                                    popHorse(-1);
+                                } else {
+                                    playAudio("./helicopter.mp3");
+                                    popHorse(-4);
                                 }
                             }
                         }, 2500);

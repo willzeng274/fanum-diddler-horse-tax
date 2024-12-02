@@ -26,6 +26,7 @@ import { BuildingLg } from './models/building_lg';
 import { Crops } from './models/crops';
 import { Haystack } from './models/haystack';
 import { BuildingMd } from './models/building_md';
+import BrainRotGameOver from './components/brain-rot-game-over';
 
 const Crosshair = () => (
   <div
@@ -204,47 +205,54 @@ const SentenceMapping: {
   [k in Restriction]: string[];
 } = {
   // generate some random sentences associated with each restriction
-  "NORMAL": [
-    // no dietary restrictions, normal food
-    "Hello, I'm feeling hungry! Can I have any food? Please and thank you.",
-    "Hi, I'm feeling peckish! Can I have a snack? Thanks!",
-    "Hello, could I have a meal please? I'm feeling hungry.",
+  // "NORMAL": [
+  //   // no dietary restrictions, normal food
+  //   "Hello, I'm feeling hungry! Can I have any food? Please and thank you.",
+  //   "Hi, I'm feeling peckish! Can I have a snack? Thanks!",
+  //   "Hello, could I have a meal please? I'm feeling hungry.",
+  // ],
+  "BETA TO SIGMA SANDWICH": [
+    "Yo, slide me that alpha grindwich, gotta level up fr.",
+    "Need that sigma bite, no beta vibes here chief.",
+    "Drop the mid eats, I'm trying to hit peak hustle, you feel?",
+    "I mma beta today and it be like that, I need that level 5 grindwich to reach that sigma."
   ],
-  "VEGETARIAN": [
-    // no meat
-    "Hi, I'm vegetarian, can I have a vegetarian meal? Thanks!",
-    "Hello, I don't eat meat, can I have a vegetarian dish? Thanks!",
-    "Hello, I'm a vegetarian, can I have a vegetarian meal? Thanks!",
+  "GLIZZY": [
+    "Sheesh, toss me that glizzy, fam. No cap, I'm starving.",
+    "Bruh, need a hot dog—aka that glizzinator—right now.",
+    "Don't leave me glizzyless, bro. Peak vibes only.",
+    "Glizzy me up that level 5 gyatt"
   ],
-  "VEGAN": [
-    // no animal products
-    "Hi, I'm vegan so I can't eat animal products, can I have a vegan meal?",
-    "Hello, I'm vegan, can I have a vegan meal please? Thanks!",
-    "Hi, I'm vegan, can I have a vegan dish? Thanks!",
+  "GRIMANCE NUTS": [
+    "Grimace in the chat, I need those purple drippy snacks ASAP.",
+    "Yo, pass the sus Grimmy crunchies, I'm trying to vibe.",
+    "Hungry for that limited-edition purple haze snack pack. Let's go.",
+    "Grimace me up that level 5 gyatt"
   ],
-  "GLUTEN": [
-    // no gluten
-    "Hello, I'm gluten intolerant, can I have a gluten-free meal?",
-    "Hi, I can't eat gluten, can I have a gluten-free dish? Thanks!",
-    "Hello, I'm gluten intolerant, can I have a gluten-free meal? Thanks!",
+  "LIVVY DUNNE CHIPS": [
+    "Lowkey need those Livvy crunchies, they hit diff no kizzy.",
+    "Wanna snack while I simp? Slide the Livvy chips, boss.",
+    "Chasing clout and craving chips, the Livvy ones only.",
+    "Gotta learn those Livvy tips from Baby Gronk back in Ohio"
   ],
-  "HALAL": [
-    // no pork
-    "Hello, I'm Muslim, can I have a halal meal? Thanks!",
-    "Hi, I'm Muslim, can I have a halal dish? Thanks!",
-    "Hello, I'm Muslim, can I have a halal meal? Thanks!",
+  "LUNCHLY": [
+    "Lunchly o'clock, bruh. I'm tryna munch and vibe.",
+    "Need some eats? Lunchly gang on top, no debate.",
+    "Ayo, Lunchly or bust. Hunger pangs are so mid.",
+    "From the screen, to the ring, to the pen, to the king, here's my crown, that's my bling, always trauma where I ring",
+    "I'm in the thick of it, everybody knows. They know me where it snows, I skied in and they froze"
   ],
-  "LACTOSE": [
-    // no dairy
-    "Hello, I'm lactose intolerant, can I have a dairy-free meal? Thanks!",
-    "Hi, I can't eat dairy, can I have a dairy-free dish? Thanks!",
-    "Hello, I'm lactose intolerant, can I have a dairy-free meal? Thanks!",
+  "MEWING STEAK": [
+    "Yo, hit me with that jawline steak. I'm tryna chomp and glow up.",
+    "Gotta chew the mew, bro. Steak me up, aesthetic grind vibes.",
+    "Steak that helps me slay? Say less, I’m on it.",
+    "I need that extra sauce to get that mew mew mewing streak in my life"
   ],
-  "NUT": [
-    // no nuts
-    "Hello, I'm allergic to nuts, can I have a nut-free meal? Thanks!",
-    "Hi, I can't eat nuts, can I have a nut-free dish? Thanks!",
-    "Hello, I'm allergic to nuts, can I have a nut-free meal? Thanks!",
+  "SKIBIDI PIE": [
+    "Skibidi bop yes yes yes, pie me up rn fam.",
+    "Need that skibidi slice, feeling goofy ahh hungry.",
+    "No pie? No skibidi. Fix this L moment ASAP.",
+    "Y'all got skibidi rizz pie? I need that level 5 gyatt"
   ]
 }
 
@@ -257,11 +265,14 @@ export default function Game() {
   const currFood = useHorseStore((state) => state.currFood);
   const health = useHorseStore((state) => state.health);
   const score = useHorseStore((state) => state.score);
+  const [gameOver, isGameOver] = useState(false);
   
   useEffect(() => {
     if (health == 0) {
-      alert("Game Over! Your final score is: " + score);
-      window.location.reload();
+      const audio = new Audio("/goofy.mp3");
+      audio.loop = true;
+      audio.play();
+      isGameOver(true);
     }
   }, [health, score]);
   // const setFoods = useFoodStore((state) => state.setFoods);
@@ -281,7 +292,7 @@ export default function Game() {
 
     const utterance = new SpeechSynthesisUtterance(text);
 
-    utterance.rate = 2; // Speed (0.1 to 10)
+    utterance.rate = 1.5; // Speed (0.1 to 10)
     utterance.pitch = Math.random() * 2; // Pitch (0 to 2)
     utterance.volume = 1; // Volume (0 to 1)
 
@@ -298,6 +309,36 @@ export default function Game() {
     }
     // if (horses && horses.length > 0 && dialogueActive) readTextAloud(`Hello! I would like to get something ${horses[0].restriction.toLowerCase()} please and thanks.`);
   }, [dialogueActive]);
+
+
+  useEffect(() => {
+    const playAudioOnInteraction = () => {
+      const audio = new Audio("/horse_neigh.mp3");
+      audio.loop = true; // Enable looping
+      audio.volume = 0.25; // Set the volume to 50%
+      audio.play();
+      
+      // Remove the event listeners after audio starts playing
+      window.removeEventListener("click", playAudioOnInteraction);
+      window.removeEventListener("keydown", playAudioOnInteraction);
+    };
+
+    // Add event listeners for user interaction
+    window.addEventListener("click", playAudioOnInteraction);
+    window.addEventListener("keydown", playAudioOnInteraction);
+
+    // Cleanup event listeners when component unmounts
+    return () => {
+      window.removeEventListener("click", playAudioOnInteraction);
+      window.removeEventListener("keydown", playAudioOnInteraction);
+    };
+  }, []);
+
+  if (gameOver) {
+    return (
+      <BrainRotGameOver />
+    );
+  }
 
   return (
     <div className="w-screen h-screen">
